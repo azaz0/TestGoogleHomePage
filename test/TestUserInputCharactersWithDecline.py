@@ -1,5 +1,6 @@
 import pytest
 
+from LoggerHandler import LoggerHandler
 from action.InputCharacters import InputCharacters
 from selenium import webdriver
 
@@ -13,5 +14,7 @@ class TestUserInputCharactersWithAgree:
     def test_search_result_with_decline(self):
         input_characters = InputCharacters(self.driver)
         input_characters.select_google_terms('n')
-        count_result = input_characters.check_search_result('sss')
-        print("results: ", count_result)
+        results = input_characters.check_search_result()
+
+
+

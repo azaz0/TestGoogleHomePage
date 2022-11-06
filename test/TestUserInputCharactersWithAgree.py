@@ -13,5 +13,6 @@ class TestUserInputCharactersWithAgree:
     def test_search_result_with_agree(self):
         input_characters = InputCharacters(self.driver)
         input_characters.select_google_terms('y')
-        count_result = input_characters.check_search_result('sss')
-        print("results: ", count_result)
+        results = input_characters.check_search_result()
+        print("results: ", results)
+
