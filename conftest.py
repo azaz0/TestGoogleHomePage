@@ -18,8 +18,10 @@ def setup(request):
     browser_name = request.config.getoption('browser_name')
     print("BROWSER", browser_name)
     if browser_name == 'chrome':
-        options = webdriver.ChromeOptions()
-        driver = webdriver.Chrome(chrome_options=options, executable_path=ChromeDriverManager().install())
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--incognito")
+        driver = webdriver.Chrome(options=chrome_options, executable_path=ChromeDriverManager().install())
+
     if browser_name == 'firefox':
         driver = webdriver.Firefox(GeckoDriverManager().install())
     if browser_name == 'ie':
