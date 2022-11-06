@@ -16,8 +16,10 @@ def pytest_addoption(parser):
 @pytest.fixture(scope='class')
 def setup(request):
     browser_name = request.config.getoption('browser_name')
+    print("BROWSER", browser_name)
     if browser_name == 'chrome':
-        driver = webdriver.Chrome(ChromeDriverManager().install())
+        options = webdriver.ChromeOptions()
+        driver = webdriver.Chrome(chrome_options=options, executable_path=ChromeDriverManager().install())
     if browser_name == 'firefox':
         driver = webdriver.Firefox(GeckoDriverManager().install())
     if browser_name == 'ie':
@@ -27,7 +29,7 @@ def setup(request):
     if browser_name == 'opera':
         driver = webdriver.Opera(OperaDriverManager().install())
 
-    driver.get('https://www.zieloneimperium.pl/')
+    driver.get('https://www.google.pl/')
     driver.maximize_window()
     request.cls.driver = driver
     yield
