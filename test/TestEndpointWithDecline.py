@@ -18,3 +18,4 @@ class TestEndpointWithDecline:
         search_endpoint = SearchEndpoint(self.driver)
         SelectTerms(self.driver).select_google_terms('n')
         search_endpoint.check_search_result_by_endpoint('decline_terms')
+        search_endpoint.check_unexpected_endpoint()

@@ -17,3 +17,4 @@ class TestEndpointWithAgree:
         search_endpoint = SearchEndpoint(self.driver)
         SelectTerms(self.driver).select_google_terms('n')
         search_endpoint.check_search_result_by_endpoint('agree_terms')
+        search_endpoint.check_unexpected_endpoint()
