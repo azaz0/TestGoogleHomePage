@@ -6,3 +6,4 @@ config
 .pytest_cache/*
 __pycache__
 TestGoogle.docx
+.logs/*
