@@ -1,8 +1,10 @@
 import pytest
 
-
 from action.InputCharacters import InputCharacters
 from selenium import webdriver
+
+from action.SearchEndpoint import SearchEndpoint
+from action.SelectTerms import SelectTerms
 
 
 @pytest.mark.usefixtures("setup")
@@ -12,6 +14,6 @@ class TestEndpointWithAgree:
     #     self.input_characters = InputCharacters(self.driver)
 
     def test_search_result_by_endpoint(self):
-        input_characters = InputCharacters(self.driver)
-        input_characters.select_google_terms('y')
-        input_characters.check_search_result_by_endpoint()
+        search_endpoint = SearchEndpoint(self.driver)
+        SelectTerms(self.driver).select_google_terms('n')
+        search_endpoint.check_search_result_by_endpoint('agree_terms')
