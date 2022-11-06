@@ -15,7 +15,7 @@ class SearchEndpoint:
             self.driver.get(url)
             self.driver.execute_script('document.body.style.zoom="50%"')
             self.driver.save_screenshot(
-                './logs/images/' + run_with_cookie + '/endpoints/endpoint_?q=' + element + '_log.png')
+                './logs/images/' + run_with_cookie + '/endpoints/endpoint_' + element + '_log.png')
 
     def check_unexpected_endpoint(self, run_with_cookie: str = 'agree_terms'):
         for element in self.endpoints:
@@ -23,4 +23,4 @@ class SearchEndpoint:
             self.driver.get(url)
             self.driver.execute_script('document.body.style.zoom="50%"')
             self.driver.save_screenshot(
-                './logs/images/' + run_with_cookie + '/endpoints/unexpected/endpoint_?q=' + element + '_log.png')
+                './logs/images/' + run_with_cookie + '/endpoints/unexpected/endpoint_' + element + '_log.png')
