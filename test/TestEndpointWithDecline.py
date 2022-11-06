@@ -4,6 +4,9 @@ from LoggerHandler import LoggerHandler
 from action.InputCharacters import InputCharacters
 from selenium import webdriver
 
+from action.SearchEndpoint import SearchEndpoint
+from action.SelectTerms import SelectTerms
+
 
 @pytest.mark.usefixtures("setup")
 class TestEndpointWithDecline:
@@ -12,6 +15,6 @@ class TestEndpointWithDecline:
     #     self.input_characters = InputCharacters(self.driver)
 
     def test_search_result_by_endpoint(self):
-        input_characters = InputCharacters(self.driver)
-        input_characters.select_google_terms('n')
-        input_characters.check_search_result_by_endpoint('decline_terms')
+        search_endpoint = SearchEndpoint(self.driver)
+        SelectTerms(self.driver).select_google_terms('n')
+        search_endpoint.check_search_result_by_endpoint('decline_terms')
