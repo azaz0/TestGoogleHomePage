@@ -6,34 +6,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from variables.PageElement import PageElement
+
 
 class InputCharacters:
 
     def __init__(self, driver):
         self.wait = WebDriverWait(driver, 10)
-        self.search_bar = '//input[@name="q"]'
-        self.search_button = '//input[@class="gNO89b"]'
-        self.google_terms = '//div[@id="CXQnmb"]'
-        self.decline_button = '//button[@id="W0wltc"]'
-        self.agree_button = '//button[@id="L2AGLb"]'
-        self.result_text = '//h3[@class="LC20lb MBeuO DKV0Md"]'
-        self.characters = ['""', "''", '\'', '\"',
-                           '(', ')', '*', '&', '^',
-                           '$', '%', '#', '@', '!',
-                           '?', ',', ';', ':', '{',
-                           '}', '>', '<', '/', '\\',
-                           '1', '2', '3', '4', '5',
-                           '6', '7', '8', '9', 'S',
-                           'google']
-        self.google_url = 'https://www.google.pl/'
+        self.page_element = PageElement
         self.driver = driver
 
     def check_search_result(self, run_with_cookie: str = 'agree_terms') -> list:
         results = []
-        for element in self.characters:
+        for element in self.page_element.CHARACTERS:
             item = [{'Element': element}]
             self.run_search(element)
-            text_results = self.driver.find_elements(By.XPATH, self.result_text)
+            text_results = self.driver.find_elements(By.XPATH, self.page_element.RESULT_TEXT)
             item.append('Result for element: ' + element + ' not found.')
             self.driver.execute_script('document.body.style.zoom="50%"')
             self.driver.save_screenshot('./logs/images/'+run_with_cookie+'/characters/item_' + element + '_log.png')
@@ -45,20 +33,7 @@ class InputCharacters:
             self.driver.back()
         return results
 
-    def select_google_terms(self, agree: str = 'y'):
-        if agree == 'y':
-            self.driver.find_element(By.XPATH, self.agree_button).click()
-        if agree == 'n':
-            self.driver.find_element(By.XPATH, self.decline_button).click()
-
     def run_search(self, chars: str = 'google'):
-        search = self.driver.find_element(By.XPATH, self.search_bar)
+        search = self.driver.find_element(By.XPATH, self.page_element.SEARCH_BAR)
         search.send_keys(chars)
         search.submit()
-
-    def check_search_result_by_endpoint(self, run_with_cookie: str = 'agree_terms'):
-        for element in self.characters:
-            url = self.google_url + 'search?q=' + element
-            self.driver.get(url)
-            self.driver.execute_script('document.body.style.zoom="50%"')
-            self.driver.save_screenshot('./logs/images/'+run_with_cookie+'/endpoints/endpoint_?q=' + element + '_log.png')
