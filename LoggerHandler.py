@@ -8,9 +8,9 @@ class LoggerHandler:
     def get_logger(self):
         logger = logging.getLogger(__name__)
 
-        fileHandler = logging.FileHandler('./logs/logfile.log')
+        file_handler = logging.FileHandler('./logs/logfile.log', 'wb')
         formatter = logging.Formatter('%(asctime)s :%(levelname)s : %(name)s :%(message)s')
-        fileHandler.setFormatter(formatter)
-        logger.addHandler(fileHandler)  # filehandler object
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)  # filehandler object
         logger.setLevel(logging.INFO)
         return logger

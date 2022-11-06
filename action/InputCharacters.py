@@ -25,15 +25,18 @@ class InputCharacters:
                            '1', '2', '3', '4', '5',
                            '6', '7', '8', '9', 'S',
                            'google']
-        self.google_url = 'https//:www.google.pl/'
+        self.google_url = 'https://www.google.pl/'
         self.driver = driver
 
-    def check_search_result(self) -> list:
+    def check_search_result(self, run_with_cookie: str = 'agree_terms') -> list:
         results = []
         for element in self.characters:
             item = [{'Element': element}]
             self.run_search(element)
             text_results = self.driver.find_elements(By.XPATH, self.result_text)
+            item.append('Result for element: ' + element + ' not found.')
+            self.driver.execute_script('document.body.style.zoom="50%"')
+            self.driver.save_screenshot('./logs/images/'+run_with_cookie+'/characters/item_' + element + '_log.png')
             count = 0
             for text_result in text_results:
                 item.append({'nr': count, 'text': text_result.text})
@@ -52,3 +55,10 @@ class InputCharacters:
         search = self.driver.find_element(By.XPATH, self.search_bar)
         search.send_keys(chars)
         search.submit()
+
+    def check_search_result_by_endpoint(self, run_with_cookie: str = 'agree_terms'):
+        for element in self.characters:
+            url = self.google_url + 'search?q=' + element
+            self.driver.get(url)
+            self.driver.execute_script('document.body.style.zoom="50%"')
+            self.driver.save_screenshot('./logs/images/'+run_with_cookie+'/endpoints/endpoint_?q=' + element + '_log.png')
